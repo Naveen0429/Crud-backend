@@ -7,13 +7,14 @@ require('dotenv').config();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin:"*",
+}));
+
+
 app.use("/users", userRoute);
 app.use("/auth", employeeRoute);
 
-app.get("/", (req, res) => {
-  res.send("Har Har Mahadev");
-});
 
 const MongoDb = () => {
   try {
@@ -26,7 +27,7 @@ const MongoDb = () => {
 
 MongoDb()
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8000
 
 app.listen(PORT, ()=>{
   console.log(`listening on port ${PORT}`);
